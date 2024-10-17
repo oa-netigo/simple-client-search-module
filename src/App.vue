@@ -1,12 +1,11 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { ref } from 'vue'
 import SearchQuery from '@/components/SearchQuery.vue'
 import SearchFilter from '@/components/SearchFilter.vue'
 import ResultList from '@/components/ResultList.vue'
 import ResultPagination from '@/components/ResultPagination.vue'
-
 import { useItems } from '@/composables/useItems';
-
+import { useFilteredItems } from '@/composables/useFilteredItems';
 const { items, isLoading, hasError } = useItems();
 
 const updateQuery = (newQuery) => {
@@ -40,18 +39,7 @@ const paginationOptions = ref({
   currentPage: 1,
 });
 
-const filteredItems = computed(() => {
-  const filtered = items.value.filter(item => {
-    const matchesQuery = searchOptions.value.keys.some(key => {
-      return item[key].toLowerCase().includes(searchQuery.value.toLowerCase());
-    });
-
-    const matchesFilter = searchFilter.value ? item.category === searchFilter.value : true;
-    return matchesQuery && matchesFilter;
-  });
-
-  return filtered;
-})
+const filteredItems = useFilteredItems(items, searchQuery, searchFilter, searchOptions);
 
 </script>
 

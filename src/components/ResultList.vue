@@ -19,21 +19,6 @@ const showedItems = computed(() => {
   return props.filteredItems.slice(start, end);
 })
 
-// const filteredItems = computed(() => {
-//   const start = (props.paginationOptions.currentPage - 1) * props.paginationOptions.itemsPerPage;
-//   const end = start + props.paginationOptions.itemsPerPage;
-//
-//   const filtered = props.items.filter(item => {
-//     const matchesQuery = props.searchOptions.keys.some(key => {
-//       return item[key].toLowerCase().includes(props.searchQuery.toLowerCase());
-//     });
-//     const matchesFilter = props.searchFilter ? item.category === props.searchFilter : true;
-//     return matchesQuery && matchesFilter;
-//   });
-//
-//   return filtered.slice(start, end);
-// })
-
 const noResult = computed(() => {
   return props.filteredItems.length === 0;
 })
