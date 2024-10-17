@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Introduction to Vue.js",
+        "description": "A comprehensive guide to getting started with Vue.js, a progressive JavaScript framework.",
+        "category": "JavaScript",
+        "color": "#42b883"
+    },
+    {
+        "title": "Advanced JavaScript Techniques",
+        "description": "Explore advanced concepts and techniques in JavaScript to enhance your coding skills.",
+        "category": "JavaScript",
+        "color": "#42b883"
+    },
+    {
+        "title": "Building RESTful APIs",
+        "description": "Learn how to design and build RESTful APIs using Node.js and Express.",
+        "category": "Backend",
+        "color": "#68a063"
+    },
+    {
+        "title": "Understanding CSS Grid",
+        "description": "A deep dive into CSS Grid layout, a powerful tool for creating complex web layouts.",
+        "category": "CSS",
+        "color": "#264de4"
+    },
+    {
+        "title": "Mastering Git and GitHub",
+        "description": "A step-by-step guide to mastering version control with Git and collaborating on GitHub.",
+        "category": "Version Control",
+        "color": "#f34f29"
+    },
+    {
+        "title": "Responsive Web Design",
+        "description": "Techniques and best practices for creating responsive web designs that work on all devices.",
+        "category": "Web Design",
+        "color": "#ff6347"
+    },
+    {
+        "title": "Introduction to TypeScript",
+        "description": "An introduction to TypeScript, a typed superset of JavaScript that compiles to plain JavaScript.",
+        "category": "JavaScript",
+        "color": "#42b883"
+    },
+    {
+        "title": "Building Single Page Applications",
+        "description": "Learn how to build single-page applications (SPAs) using modern JavaScript frameworks.",
+        "category": "JavaScript",
+        "color": "#42b883"
+    },
+    {
+        "title": "Web Performance Optimization",
+        "description": "Strategies and techniques for optimizing the performance of your web applications.",
+        "category": "Performance",
+        "color": "#ff4500"
+    },
+    {
+        "title": "Introduction to Web Accessibility",
+        "description": "A guide to making your web applications accessible to all users, including those with disabilities.",
+        "category": "Accessibility",
+        "color": "#a9a9a9"
+    }
+]
