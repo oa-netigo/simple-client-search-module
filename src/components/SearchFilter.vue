@@ -6,9 +6,9 @@ const props = defineProps({
 });
 
 const searchFilter = ref('');
-const emit = defineEmits(['filter']);
-const filter = () => {
-  emit('filter', searchFilter.value);
+const emit = defineEmits(['onFilter']);
+const onFilter = () => {
+  emit('onFilter', searchFilter.value);
 };
 
 const uniqueCategories = ref([]);
@@ -27,7 +27,7 @@ props.items.forEach(item => {
     <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
       <template v-for="(item, index) in uniqueCategories" :key="index">
         <input type="radio" class="btn-check" name="filter-category" :id="'filter-' + index" autocomplete="off" :value="item.category"
-               v-model="searchFilter" @change="filter">
+               v-model="searchFilter" @change="onFilter">
         <label class="btn btn-outline-primary" :for="'filter-' + index">{{ item.category }}</label>
       </template>
     </div>

@@ -9,7 +9,7 @@ export function useItems() {
   const fetchItems = async () => {
     try {
       // Simulate a sleep via timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // await new Promise(resolve => setTimeout(resolve, 1000));
 
       const data = await itemService.getItems();
       items.value = data;

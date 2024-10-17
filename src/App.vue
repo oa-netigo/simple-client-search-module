@@ -1,8 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue'
 import SearchQuery from '@/components/SearchQuery.vue'
 import SearchFilter from '@/components/SearchFilter.vue'
 import ResultList from '@/components/ResultList.vue'
+import ResultPagination from '@/components/ResultPagination.vue'
 
 import { useItems } from '@/composables/useItems';
 
@@ -10,16 +11,23 @@ const { items, isLoading, hasError } = useItems();
 
 const updateQuery = (newQuery) => {
   searchQuery.value = newQuery;
+  paginationOptions.value.currentPage = 1;
 };
 
 const updateFilter = (newFilter) => {
   searchFilter.value = newFilter;
+  paginationOptions.value.currentPage = 1;
 };
 
 // @TODO: uncheck radio button when reset
 const resetFilter = () => {
   searchQuery.value = '';
   searchFilter.value = '';
+  paginationOptions.value.currentPage = 1;
+};
+
+const updatePage = (newPage) => {
+  paginationOptions.value.currentPage = newPage;
 };
 
 const searchQuery = ref('');
@@ -27,20 +35,47 @@ const searchFilter = ref('');
 const searchOptions = ref({
   keys: ['title', 'description'],
 });
+const paginationOptions = ref({
+  itemsPerPage: 4,
+  currentPage: 1,
+});
+
+const filteredItems = computed(() => {
+  const filtered = items.value.filter(item => {
+    const matchesQuery = searchOptions.value.keys.some(key => {
+      return item[key].toLowerCase().includes(searchQuery.value.toLowerCase());
+    });
+
+    const matchesFilter = searchFilter.value ? item.category === searchFilter.value : true;
+    return matchesQuery && matchesFilter;
+  });
+
+  return filtered;
+})
+
 </script>
 
 <template>
   <div v-if="!isLoading && !hasError">
-    <SearchQuery @onSearch="updateQuery" @onReset="resetFilter"/>
+    <SearchQuery
+      @on-search="updateQuery"
+      @on-reset="resetFilter"/>
     <SearchFilter
       :items="items"
-      @filter="updateFilter"/>
+      @on-filter="updateFilter"/>
     <ResultList
       :items="items"
-      :searchOptions="searchOptions"
-      :searchQuery="searchQuery"
-      :searchFilter="searchFilter"
+      :filtered-items="filteredItems"
+      :search-options="searchOptions"
+      :search-query="searchQuery"
+      :search-filter="searchFilter"
+      :pagination-options="paginationOptions"
     />
+    <ResultPagination
+      :items="items"
+      :filtered-items="filteredItems"
+      :pagination-options="paginationOptions"
+      @on-page-change="updatePage"/>
   </div>
   <div class="list-error"
        v-if="hasError">
