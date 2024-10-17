@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue';
 
 const searchQuery = ref('');
-// const searchQueryHelper = useTemplateRef('search-query-info');
 
 const emit = defineEmits(['onSearch', 'onReset']);
 const search = () => {

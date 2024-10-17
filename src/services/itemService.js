@@ -1,20 +1,23 @@
 const apiClient = {
   get: async (url) => {
-    const response = await fetch(`/${url}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
+    try {
+      const response = await fetch(`/${url}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
 
-    // Check if the response is ok (status 200-299)
-    if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Fetch error:', error);
+      throw new Error('Failed to fetch data');
     }
-
-    // Parse JSON response
-    return await response.json();
   },
 };
 

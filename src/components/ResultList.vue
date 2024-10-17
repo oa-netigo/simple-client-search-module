@@ -3,25 +3,24 @@ import { computed, defineProps } from 'vue'
 
 const props = defineProps({
   items: Array,
+  filteredItems: Array,
   isLoading: Boolean,
   hasError: Boolean,
   searchOptions: Object,
   searchQuery: String,
-  searchFilter: String
+  searchFilter: String,
+  paginationOptions: Object
 });
 
-const filteredItems = computed(() => {
-  return props.items.filter(item => {
-    const matchesQuery = props.searchOptions.keys.some(key => {
-      return item[key].toLowerCase().includes(props.searchQuery.toLowerCase());
-    });
-    const matchesFilter = props.searchFilter ? item.category === props.searchFilter : true;
-    return matchesQuery && matchesFilter;
-  })
+const showedItems = computed(() => {
+  const start = (props.paginationOptions.currentPage - 1) * props.paginationOptions.itemsPerPage;
+  const end = start + props.paginationOptions.itemsPerPage;
+
+  return props.filteredItems.slice(start, end);
 })
 
 const noResult = computed(() => {
-  return filteredItems.value.length === 0;
+  return props.filteredItems.length === 0;
 })
 
 </script>
@@ -30,7 +29,7 @@ const noResult = computed(() => {
   <div class="result-list py-4">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-start"
-          v-for="(item, index) in filteredItems" :key="index">
+          v-for="(item, index) in showedItems" :key="index">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{ item.title }}</div>
           {{ item.description }}
