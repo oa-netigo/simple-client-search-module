@@ -23,6 +23,6 @@ const apiClient = {
 
 export default {
   getItems() {
-    return apiClient.get('src/api/items/data.json');
+    return apiClient.get('api/items/data.json');
   }
 };
